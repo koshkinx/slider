@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .slider {
+        position: relative;
+        overflow: hidden;
+        height: 400px; /* высота контейнера */
+        margin: 0 auto;
+      }
+
+      .slider-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .slider-container img {
+        height: 100%;
+        width: auto;
+        display: block;
+      }
+
+      .slider-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 10px;
+      }
+
+      .slider-control {
+        font-size: 2em;
+        border: none;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider">
+      <div class="slider-container">
+        <img src="/homework.jpg" alt="image1" />
+        <img src="/Screenshot_1.jpg" alt="image2" />
+        <img src="/Screenshot_3.jpg" alt="image3" />
+      </div>
+    </div>
+    <div class="slider-controls">
+      <button class="slider-control prev">&uarr;</button>
+      <button class="slider-control next">&darr;</button>
+    </div>
+    <script>
+      const slider = document.querySelector(".slider");
+      const sliderContainer = slider.querySelector(".slider-container");
+      const prevBtn = document.querySelector(".prev");
+      const nextBtn = document.querySelector(".next");
+      const slideHeight = sliderContainer.clientHeight;
+      let currentIndex = 0;
+
+      function goToSlide(index) {
+        sliderContainer.style.transform = `translateY(-${
+          index * slideHeight
+        }px)`;
+        currentIndex = index;
+      }
+
+      function slideToNext() {
+        if (currentIndex === sliderContainer.children.length - 1) {
+          goToSlide(0);
+        } else {
+          goToSlide(currentIndex + 1);
+        }
+      }
+
+      function slideToPrev() {
+        if (currentIndex === 0) {
+          goToSlide(sliderContainer.children.length - 1);
+        } else {
+          goToSlide(currentIndex - 1);
+        }
+      }
+
+      nextBtn.addEventListener("click", slideToNext);
+      prevBtn.addEventListener("click", slideToPrev);
+    </script>
+  </body>
+</html>
